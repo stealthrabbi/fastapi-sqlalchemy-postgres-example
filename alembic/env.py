@@ -5,6 +5,15 @@ from sqlalchemy import pool
 
 from alembic import context
 
+# setup stuff for models path
+import os, sys
+# from dotenv import load_dotenv
+
+# Wanted toa dd this, but dotenv doesn't load up properlly on windows / python 3.7 x64 at least
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# load_dotenv(os.path.join(BASE_DIR, ".env"))
+sys.path.append(BASE_DIR)
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -13,11 +22,14 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
+import models
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+#target_metadata = None
+
+target_metadata = models.Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -38,6 +50,7 @@ def run_migrations_offline():
 
     """
     url = config.get_main_option("sqlalchemy.url")
+    print("url is: " + url)
     context.configure(
         url=url,
         target_metadata=target_metadata,

@@ -19,3 +19,11 @@ class Food(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
+
+
+class Drink(Base):
+    __tablename__ = "drink"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    color = Column(String)
